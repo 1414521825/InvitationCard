@@ -6,7 +6,11 @@ const backgroundMusic = document.querySelector("[data-background-music]");
 let audioContext;
 let syntheticTimer;
 let isMusicPlaying = false;
-let hasTriedScrollPlay = false;
+let hasStartedFromSwipe = false;
+let hasUserPausedMusic = false;
+let touchStartY;
+
+const SWIPE_PLAY_DISTANCE = 24;
 
 const melody = [
   392,
@@ -64,6 +68,7 @@ const startSyntheticMusic = async () => {
   audioContext ||= new AudioEngine();
   await audioContext.resume();
   scheduleSyntheticMelody();
+  window.clearInterval(syntheticTimer);
   syntheticTimer = window.setInterval(scheduleSyntheticMelody, melody.length * 420);
 };
 
@@ -80,6 +85,7 @@ const startMusic = async () => {
   }
 
   isMusicPlaying = true;
+  hasUserPausedMusic = false;
   musicToggle.setAttribute("aria-pressed", "true");
   musicToggle.setAttribute("aria-label", "暂停背景音乐");
   musicToggle.querySelector(".music-toggle__text").textContent = "暂停";
@@ -97,24 +103,42 @@ const stopMusic = async () => {
   }
 
   isMusicPlaying = false;
+  hasUserPausedMusic = true;
   musicToggle.setAttribute("aria-pressed", "false");
   musicToggle.setAttribute("aria-label", "播放背景音乐");
   musicToggle.querySelector(".music-toggle__text").textContent = "音乐";
 };
 
-const tryStartMusicFromScroll = (shouldIgnorePosition = false) => {
-  if (hasTriedScrollPlay || isMusicPlaying || !backgroundMusic) {
+const tryStartMusicFromSwipe = async () => {
+  if (hasStartedFromSwipe || hasUserPausedMusic || isMusicPlaying) {
     return;
   }
 
-  if (!shouldIgnorePosition && window.scrollY < 12) {
-    return;
-  }
-
-  hasTriedScrollPlay = true;
-  startMusic().catch(() => {
+  try {
+    await startMusic();
+    hasStartedFromSwipe = true;
+  } catch {
     musicToggle.querySelector(".music-toggle__text").textContent = "点击播放";
-  });
+  }
+};
+
+const handleTouchStart = (event) => {
+  touchStartY = event.touches[0]?.clientY;
+};
+
+const handleTouchMove = (event) => {
+  if (typeof touchStartY !== "number") {
+    return;
+  }
+
+  const currentY = event.touches[0]?.clientY;
+  if (typeof currentY !== "number") {
+    return;
+  }
+
+  if (Math.abs(currentY - touchStartY) >= SWIPE_PLAY_DISTANCE) {
+    tryStartMusicFromSwipe();
+  }
 };
 
 if (rsvpButton && rsvpNote) {
@@ -133,6 +157,7 @@ if (musicToggle) {
         await stopMusic();
       } else {
         await startMusic();
+        hasStartedFromSwipe = true;
       }
     } catch {
       await stopMusic();
@@ -141,23 +166,27 @@ if (musicToggle) {
   });
 }
 
-window.addEventListener("scroll", tryStartMusicFromScroll, { passive: true });
 window.addEventListener(
-  "pointerdown",
-  () => tryStartMusicFromScroll(true),
+  "scroll",
+  () => {
+    if (window.scrollY >= SWIPE_PLAY_DISTANCE) {
+      tryStartMusicFromSwipe();
+    }
+  },
   { passive: true },
 );
 window.addEventListener(
   "wheel",
   (event) => {
     if (event.deltaY > 0) {
-      tryStartMusicFromScroll(true);
+      tryStartMusicFromSwipe();
     }
   },
   { passive: true },
 );
+window.addEventListener("touchstart", handleTouchStart, { passive: true });
 window.addEventListener(
   "touchmove",
-  () => tryStartMusicFromScroll(true),
+  handleTouchMove,
   { passive: true },
 );

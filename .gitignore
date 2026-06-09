@@ -1,1 +1,2 @@
-Audio/
+Audio/*
+!Audio/background.mp3
