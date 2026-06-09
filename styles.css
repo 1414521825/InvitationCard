@@ -49,6 +49,49 @@ img {
   object-fit: cover;
 }
 
+.music-toggle {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 20;
+  display: inline-grid;
+  grid-template-columns: 22px auto;
+  gap: 7px;
+  align-items: center;
+  min-width: 76px;
+  height: 44px;
+  padding: 0 13px;
+  color: #fff7e7;
+  font: 700 15px/1 var(--sans);
+  border: 1px solid rgba(255, 235, 179, 0.62);
+  border-radius: 999px;
+  cursor: pointer;
+  background: rgba(143, 29, 29, 0.92);
+  box-shadow: 0 12px 28px rgba(43, 26, 22, 0.24);
+  backdrop-filter: blur(10px);
+}
+
+.music-toggle__icon {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  color: var(--red-deep);
+  background: #fff0c7;
+  border-radius: 50%;
+}
+
+.music-toggle[aria-pressed="true"] .music-toggle__icon {
+  animation: music-spin 3.2s linear infinite;
+}
+
+.music-toggle:focus-visible,
+.hero__button:focus-visible,
+.action:focus-visible {
+  outline: 3px solid rgba(201, 151, 59, 0.58);
+  outline-offset: 3px;
+}
+
 .invitation {
   width: min(1120px, calc(100% - 32px));
   margin: 0 auto;
@@ -408,6 +451,12 @@ h2 {
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes music-spin {
+    to {
+      transform: rotate(360deg);
     }
   }
 }
