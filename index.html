@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="爸，妈，我想请你们来参加我在浙江大学的毕业典礼。"
+    />
+    <title>毕业典礼邀请 | 浙江大学</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="invitation">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__photo" aria-hidden="true">
+          <img src="./Images/hero-zju-gown.jpg" alt="" />
+        </div>
+        <div class="hero__content">
+          <p class="seal"><span>求是</span><span>毕业</span></p>
+          <h1 id="hero-title">爸，妈，我想请你们来参加我的毕业典礼</h1>
+          <p class="hero__copy">
+            这一次，换我站在台上，认真地向你们挥手。
+          </p>
+          <a class="hero__button" href="#details">查看邀请</a>
+        </div>
+      </section>
+
+      <section class="letter" aria-labelledby="letter-title">
+        <p class="section-kicker">一封家书</p>
+        <h2 id="letter-title">这张请柬，想第一个给你们</h2>
+        <div class="letter__text">
+          <p>小时候，是你们牵着我去学校。</p>
+          <p>后来，是你们送我去更远的地方。</p>
+          <p>
+            现在，我终于要从浙江大学毕业了。我想请你们坐在台下，亲眼看见我把这一段路走完。
+          </p>
+          <p>
+            这张毕业证上写的是我的名字，可它里面也有你们很多年的辛苦、牵挂和期待。
+          </p>
+        </div>
+      </section>
+
+      <section id="details" class="details" aria-labelledby="details-title">
+        <div>
+          <p class="section-kicker">典礼信息</p>
+          <h2 id="details-title">毕业典礼邀请</h2>
+        </div>
+
+        <dl class="details__list">
+          <div>
+            <dt>学校</dt>
+            <dd>浙江大学</dd>
+          </div>
+          <div>
+            <dt>学院 / 专业</dt>
+            <dd>计算机科学与技术学院 / 计算机技术</dd>
+          </div>
+          <div>
+            <dt>日期</dt>
+            <dd>2026 年 6 月 28 日</dd>
+          </div>
+          <div>
+            <dt>时间</dt>
+            <dd>具体时间待确认</dd>
+          </div>
+          <div>
+            <dt>地点</dt>
+            <dd>杭州市浙江大学紫金港校区</dd>
+          </div>
+        </dl>
+
+        <div class="actions" aria-label="邀请操作">
+          <a
+            class="action action--secondary"
+            href="https://uri.amap.com/search?keyword=%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%E7%B4%AB%E9%87%91%E6%B8%AF%E6%A0%A1%E5%8C%BA"
+            target="_blank"
+            rel="noreferrer"
+          >
+            打开导航
+          </a>
+          <button class="action action--primary" type="button" data-rsvp>
+            我们会来
+          </button>
+        </div>
+        <p class="rsvp-note" data-rsvp-note hidden>
+          太好了，那天我会在人群里找你们。
+        </p>
+      </section>
+
+      <section class="gallery" aria-labelledby="gallery-title">
+        <div class="gallery__heading">
+          <p class="section-kicker">毕业留影</p>
+          <h2 id="gallery-title">想把这一刻带给你们看</h2>
+        </div>
+        <div class="gallery__grid">
+          <figure class="gallery__item gallery__item--wide">
+            <img src="./Images/campus-bench.jpg" alt="穿学位服坐在校园长椅上的毕业照" />
+          </figure>
+          <figure class="gallery__item">
+            <img src="./Images/campus-building.jpg" alt="穿学位服站在校园建筑前的毕业照" />
+          </figure>
+          <figure class="gallery__item">
+            <img src="./Images/portrait-campus.jpg" alt="穿学位服在校园里的毕业照" />
+          </figure>
+          <figure class="gallery__item">
+            <img src="./Images/cap-toss.jpg" alt="抛起学位帽的毕业照" />
+          </figure>
+          <figure class="gallery__item gallery__item--wide">
+            <img src="./Images/white-corridor.jpg" alt="穿学位服坐在校园通道里的毕业照" />
+          </figure>
+        </div>
+      </section>
+
+      <section class="closing" aria-labelledby="closing-title">
+        <p class="section-kicker">到时候见</p>
+        <h2 id="closing-title">爸，妈，谢谢你们一路陪我到这里</h2>
+        <p>
+          6 月 28 日，我想和你们一起，把这一天认真地记下来。
+        </p>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
